@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "462260018579",
+    "project_id": "redbutton-d493c",
+    "storage_bucket": "redbutton-d493c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462260018579:android:552ca36b28f5e2fa0d5c66",
+        "android_client_info": {
+          "package_name": "com.redButton.providerexample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "462260018579-t09fgoc8tbmint7khtni5of50g7lc8mi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDV8ExHKUtNJRze2kXWUVJ5N6lE3PByi0U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "462260018579-t09fgoc8tbmint7khtni5of50g7lc8mi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "462260018579-kui0u08t5sat1386rkvck8iigfdkgcuq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.providerexample"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

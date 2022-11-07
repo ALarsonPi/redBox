@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:providerexample/ChangeListeners/CurrentValue.dart';
 import 'package:providerexample/ChangeListeners/TimerValue.dart';
-import 'package:providerexample/EndScoreScreen.dart';
-import 'package:providerexample/TimerWidget.dart';
+import 'package:providerexample/Screens/EndScoreScreen.dart';
+import 'package:providerexample/Widgets/TimerWidget.dart';
 
-import 'BoxRow.dart';
-import 'ChangeListeners/Points.dart';
+import '../ChangeListeners/Points.dart';
+import '../Widgets/BoxRow.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});

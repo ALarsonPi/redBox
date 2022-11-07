@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:providerexample/ChangeListeners/CurrentValue.dart';
 import 'package:providerexample/ChangeListeners/TimerValue.dart';
 
-import 'ChangeListeners/Points.dart';
+import '../ChangeListeners/Points.dart';
 
 class EndScoreScreen extends StatelessWidget {
   const EndScoreScreen({super.key});

@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'ChangeListeners/ColorList.dart';
-import 'ChangeListeners/CurrentValue.dart';
-import 'Global.dart';
-import 'ChangeListeners/Points.dart';
+import '../ChangeListeners/ColorList.dart';
+import '../ChangeListeners/CurrentValue.dart';
+import '../Global.dart';
+import '../ChangeListeners/Points.dart';
 
 class BoxRow extends StatelessWidget {
   int rowNum;
