@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:providerexample/ChangeListeners/CurrentValue.dart';
@@ -28,16 +30,78 @@ class MyHomePage extends StatelessWidget {
     Provider.of<TimerValue>(context, listen: false).startGame();
   }
 
-  endGame(BuildContext context) {
+  endGame(BuildContext context) async {
     Provider.of<TimerValue>(context, listen: false).endGame();
     int currentScore = Provider.of<Points>(context, listen: false).value;
-    String name = "Test Dummy";
-    repository.addHighScore(HighScore(score: currentScore, name: name));
+    String name;
+
+    repository
+        .findNumberOfScoresHigherThan(currentScore)
+        .then((value) async => {
+              if (value <= 5)
+                {
+                  name = (await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('New Record'),
+                              content: TextField(
+                                onChanged: (value) {},
+                                controller: _textFieldController,
+                                decoration: const InputDecoration(
+                                    hintText: "Name or Initials"),
+                              ),
+                              actions: [
+                                ElevatedButton(
+                                  onPressed: () => {
+                                    Navigator.pop(context,
+                                        _textFieldController.value.text),
+                                  },
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            );
+                          })) ??
+                      createRandomUserID(),
+                  if (name == '') name = createRandomUserID(),
+                  repository
+                      .addHighScore(HighScore(score: currentScore, name: name)),
+                }
+            });
+  }
+
+  String createRandomUserID() {
+    return "user${Random().nextInt(12345)}";
+  }
+
+  final TextEditingController _textFieldController =
+      TextEditingController(text: '');
+  _displayNameModal(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('New Record'),
+            content: TextField(
+              onChanged: (value) {},
+              controller: _textFieldController,
+              decoration: const InputDecoration(hintText: "Name or Initials"),
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: () => {
+                  Navigator.pop(context, _textFieldController.value.text),
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
-    const int amountOfTimeForTheUser = 10;
+    const int amountOfTimeForTheUser = 3;
 
     String currentTitle = (Provider.of<TimerValue>(context).hasStarted)
         ? 'Tap the Red Box!'

@@ -19,31 +19,6 @@ class EndScoreScreen extends StatelessWidget {
     Provider.of<CurrentValue>(context, listen: false).resetValue();
   }
 
-  // createModal(BuildContext context) async {
-  //   String data = await showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return Expanded(
-  //         child: AlertDialog(
-  //           title: Text('Welcome'),
-  //           content: Text('GeeksforGeeks'),
-  //           actions: [
-  //             ElevatedButton(
-  //               onPressed: () {},
-  //               child: Text('CANCEL'),
-  //             ),
-  //             ElevatedButton(
-  //               onPressed: () {},
-  //               child: Text('ACCEPT'),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   );
-  //   return data;
-  // }
-
   @override
   Widget build(BuildContext context) {
     // createModal(context);
