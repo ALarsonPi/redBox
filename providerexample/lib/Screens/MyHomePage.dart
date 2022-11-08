@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:providerexample/ChangeListeners/CurrentValue.dart';
 import 'package:providerexample/ChangeListeners/TimerValue.dart';
+import 'package:providerexample/Models/HighScore.dart';
 import 'package:providerexample/Screens/EndScoreScreen.dart';
 import 'package:providerexample/Widgets/TimerWidget.dart';
+import 'package:providerexample/repository/dataRepository.dart';
 
 import '../ChangeListeners/Points.dart';
 import '../Widgets/BoxRow.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
+
+  DataRepository repository = DataRepository();
 
   late TextStyle inGameTextStyle = const TextStyle(
     fontSize: 25,
@@ -26,10 +30,15 @@ class MyHomePage extends StatelessWidget {
 
   endGame(BuildContext context) {
     Provider.of<TimerValue>(context, listen: false).endGame();
+    int currentScore = Provider.of<Points>(context, listen: false).value;
+    String name = "Test Dummy";
+    repository.addHighScore(HighScore(score: currentScore, name: name));
   }
 
   @override
   Widget build(BuildContext context) {
+    const int amountOfTimeForTheUser = 10;
+
     String currentTitle = (Provider.of<TimerValue>(context).hasStarted)
         ? 'Tap the Red Box!'
         : 'Tap Start to begin!';
@@ -71,7 +80,7 @@ class MyHomePage extends StatelessWidget {
                                   },
                                 ),
                                 TimerWidget(
-                                  startingSeconds: 150,
+                                  startingSeconds: amountOfTimeForTheUser,
                                   textStyle: inGameTextStyle,
                                   timesUpFunction: endGame,
                                   textToShow: 'Time Left',
@@ -87,7 +96,7 @@ class MyHomePage extends StatelessWidget {
                         ],
                       ),
               )
-            : const EndScoreScreen(),
+            : EndScoreScreen(),
       ),
     );
   }
