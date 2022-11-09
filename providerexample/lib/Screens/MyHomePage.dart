@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:providerexample/ChangeListeners/ColorList.dart';
 import 'package:providerexample/ChangeListeners/CurrentValue.dart';
 import 'package:providerexample/ChangeListeners/TimerValue.dart';
+import 'package:providerexample/Global.dart';
 import 'package:providerexample/Models/HighScore.dart';
 import 'package:providerexample/Screens/EndScoreScreen.dart';
 import 'package:providerexample/Widgets/TimerWidget.dart';
@@ -52,6 +54,8 @@ class _MyHomePage extends State<MyHomePage> {
     }
     if (mounted) {
       Provider.of<TimerValue>(context, listen: false).endGame();
+      Provider.of<ColorList>(context, listen: false)
+          .setNewColorList(Global.colorListEasy);
     }
   }
 
