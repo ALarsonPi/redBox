@@ -12,9 +12,16 @@ import 'package:providerexample/repository/dataRepository.dart';
 import '../ChangeListeners/Points.dart';
 import '../Widgets/BoxRow.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   MyHomePage({super.key});
 
+  @override
+  State<StatefulWidget> createState() {
+    return _MyHomePage();
+  }
+}
+
+class _MyHomePage extends State<MyHomePage> {
   DataRepository repository = DataRepository();
 
   late TextStyle inGameTextStyle = const TextStyle(
@@ -30,44 +37,22 @@ class MyHomePage extends StatelessWidget {
     Provider.of<TimerValue>(context, listen: false).startGame();
   }
 
+  String name = "";
+  bool shouldShowNewRecordModal = false;
   endGame(BuildContext context) async {
-    Provider.of<TimerValue>(context, listen: false).endGame();
     int currentScore = Provider.of<Points>(context, listen: false).value;
-    String name;
 
-    repository
-        .findNumberOfScoresHigherThan(currentScore)
-        .then((value) async => {
-              if (value <= 5)
-                {
-                  name = (await showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('New Record'),
-                              content: TextField(
-                                onChanged: (value) {},
-                                controller: _textFieldController,
-                                decoration: const InputDecoration(
-                                    hintText: "Name or Initials"),
-                              ),
-                              actions: [
-                                ElevatedButton(
-                                  onPressed: () => {
-                                    Navigator.pop(context,
-                                        _textFieldController.value.text),
-                                  },
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            );
-                          })) ??
-                      createRandomUserID(),
-                  if (name == '') name = createRandomUserID(),
-                  repository
-                      .addHighScore(HighScore(score: currentScore, name: name)),
-                }
-            });
+    int numHigher = await repository.findNumberOfScoresHigherThan(currentScore);
+    if (numHigher <= 5 && mounted) {
+      await _displayHighScoreModal(context);
+      if (name == '') name = createRandomUserID();
+      if (mounted) {
+        repository.addHighScore(HighScore(score: currentScore, name: name));
+      }
+    }
+    if (mounted) {
+      Provider.of<TimerValue>(context, listen: false).endGame();
+    }
   }
 
   String createRandomUserID() {
@@ -76,7 +61,7 @@ class MyHomePage extends StatelessWidget {
 
   final TextEditingController _textFieldController =
       TextEditingController(text: '');
-  _displayNameModal(BuildContext context) {
+  _displayHighScoreModal(BuildContext context) {
     return showDialog(
         context: context,
         builder: (context) {
@@ -90,7 +75,8 @@ class MyHomePage extends StatelessWidget {
             actions: [
               ElevatedButton(
                 onPressed: () => {
-                  Navigator.pop(context, _textFieldController.value.text),
+                  name = _textFieldController.value.text,
+                  Navigator.pop(context),
                 },
                 child: const Text('OK'),
               ),
@@ -101,7 +87,7 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const int amountOfTimeForTheUser = 3;
+    const int amountOfTimeForTheUser = 150;
 
     String currentTitle = (Provider.of<TimerValue>(context).hasStarted)
         ? 'Tap the Red Box!'
