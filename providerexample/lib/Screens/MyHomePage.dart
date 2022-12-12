@@ -8,6 +8,7 @@ import 'package:providerexample/ChangeListeners/TimerValue.dart';
 import 'package:providerexample/Global.dart';
 import 'package:providerexample/Models/HighScore.dart';
 import 'package:providerexample/Screens/EndScoreScreen.dart';
+import 'package:providerexample/Widgets/InstructionsWidget.dart';
 import 'package:providerexample/Widgets/TimerWidget.dart';
 import 'package:providerexample/repository/dataRepository.dart';
 
@@ -110,10 +111,7 @@ class _MyHomePage extends State<MyHomePage> {
                 alignment: Alignment.topCenter,
                 child: (!Provider.of<TimerValue>(context).hasStarted)
                     ? (!Provider.of<TimerValue>(context).shouldStartCountdown)
-                        ? ElevatedButton(
-                            onPressed: () => startCountdown(context),
-                            child: const Text('Start'),
-                          )
+                        ? InstructionsWidget(startCountdown)
                         : TimerWidget(
                             startingSeconds: 3,
                             textStyle: const TextStyle(
